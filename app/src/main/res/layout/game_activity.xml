@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="drawable/Snakes And Ladders Map.png">
+    android:background="#4e6f7472">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="470dp"
+        android:layout_height="match_parent"
+        android:background="@mipmap/Snakes_and_ladders"
+        android:id="@+id/relativeLayout">
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/player1"
+            android:background="@mipmap/black_dot"
+            android:layout_marginLeft="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginBottom="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/player2"
+            android:background="@mipmap/red_dot"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/player1"
+            android:layout_alignStart="@+id/player1" />
+    </RelativeLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/dice"
+        android:background="@mipmap/dice_2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
+
