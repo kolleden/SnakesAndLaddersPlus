@@ -14,6 +14,10 @@ public class GameActivity extends AppCompatActivity {
     Button dice;
     int rand;
     boolean yourTurn;
+    Player Pred;
+    Player Pblack;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,8 @@ public class GameActivity extends AppCompatActivity {
                     if (rand == 5) {
                         dice.setBackgroundResource(R.mipmap.dice_6);
                     }
+                    Pblack.setLocation(Pblack.getLocation() + rand);
+
                 }
 
             }
@@ -57,6 +63,11 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
+
+        public void Move(Player player)
+        {
+
+        }
 
 }
 
