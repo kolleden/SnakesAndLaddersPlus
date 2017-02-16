@@ -1,5 +1,6 @@
 package com.example.user1.snakesandladdersplus;
 
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,13 +28,10 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         dice = (Button) findViewById(R.id.dice);
 
-        Black[0] = (ImageView) findViewById(R.id.b1);
+       Black[0] = (ImageView) findViewById(R.id.b1);
         Black[1] = (ImageView) findViewById(R.id.b2);
         Black[2] = (ImageView) findViewById(R.id.b3);
         Black[3] = (ImageView) findViewById(R.id.b4);
@@ -143,6 +141,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                if (BlackTurn) {
                 rand = random.nextInt(5);
                 if (rand == 0) {
                     dice.setBackgroundResource(R.mipmap.dice_1);
@@ -162,10 +161,31 @@ public class GameActivity extends AppCompatActivity {
                 if (rand == 5) {
                     dice.setBackgroundResource(R.mipmap.dice_6);
                 }
-                if (BlackTurn) {
+
                     MoveB(Pblack, rand, Black);
-                } else
+                }
+                else {
+                    rand = random.nextInt(5);
+                    if (rand == 0) {
+                        dice.setBackgroundResource(R.mipmap.dice_1);
+                    }
+                    if (rand == 1) {
+                        dice.setBackgroundResource(R.mipmap.dice_2);
+                    }
+                    if (rand == 2) {
+                        dice.setBackgroundResource(R.mipmap.dice_3);
+                    }
+                    if (rand == 3) {
+                        dice.setBackgroundResource(R.mipmap.dice_4);
+                    }
+                    if (rand == 4) {
+                        dice.setBackgroundResource(R.mipmap.dice_5);
+                    }
+                    if (rand == 5) {
+                        dice.setBackgroundResource(R.mipmap.dice_6);
+                    }
                     MoveR(Pred, rand, Red);
+                }
 
             }
 
@@ -178,17 +198,19 @@ public class GameActivity extends AppCompatActivity {
     public void MoveB(Player player, int move, ImageView[] view) {
         if ((player.getLocation() + move) >= 50) {
             while (player.getLocation() != 50) {
-                view[player.getLocation()].setBackground(null);
+                view[player.getLocation()].setBackgroundResource(0);
                 view[player.getLocation() + 1].setBackgroundResource(R.mipmap.black_dot);
                 player.setLocation(player.getLocation() + 1);
+                SystemClock.sleep(1000);
+
             }
             //victory massage black
         } else {
             for (int i = 0; i < move; i++) {
 
-                view[player.getLocation() + i].setBackground(null);
+                view[player.getLocation() + i].setBackgroundResource(0);
                 view[player.getLocation() + i + 1].setBackgroundResource(R.mipmap.black_dot);
-                //make a 1 second pause
+                SystemClock.sleep(1000);
             }
 
             player.setLocation(player.getLocation() + move);
@@ -200,17 +222,19 @@ public class GameActivity extends AppCompatActivity {
     public void MoveR(Player player, int move, ImageView[] view) {
         if ((player.getLocation() + move) >= 50) {
             while (player.getLocation() != 50) {
-                view[player.getLocation()].setBackground(null);
+                view[player.getLocation()].setBackgroundResource(0);
                 view[player.getLocation() + 1].setBackgroundResource(R.mipmap.red_dot);
                 player.setLocation(player.getLocation() + 1);
+                SystemClock.sleep(1000);
+
             }
             //victory massage red
         } else {
             for (int i = 0; i < move; i++) {
 
-                view[player.getLocation() + i].setBackground(null);
+                view[player.getLocation() + i].setBackgroundResource(0);
                 view[player.getLocation() + i + 1].setBackgroundResource(R.mipmap.red_dot);
-                //make a 1 second pause
+                SystemClock.sleep(1000);
             }
 
             player.setLocation(player.getLocation() + move);

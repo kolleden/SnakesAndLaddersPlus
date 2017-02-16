@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button scoreboard;
     Button login;
     Button play;
-    Boolean LoggedOn;
+    Boolean LoggedOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intentRules = new Intent(MainActivity.this, Rules.class);
-                startActivity(intentRules);
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
             }
 
 
