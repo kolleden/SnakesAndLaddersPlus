@@ -64,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intentLogin = new Intent(MainActivity.this, LoginScreen.class);
-                startActivity(intentLogin);
+                if(!LoggedOn) {
+                    Intent intentLogin = new Intent(MainActivity.this, LoginScreen.class);
+                    startActivity(intentLogin);
+                }
+
             }
 
 

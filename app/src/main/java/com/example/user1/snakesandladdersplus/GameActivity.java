@@ -18,7 +18,7 @@ public class GameActivity extends AppCompatActivity {
     Random random;
     Button dice;
     int rand;
-    boolean BlackTurn;
+    boolean blackTurn;
     Player Pred;
     Player Pblack;
     ImageView[] Black;
@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (BlackTurn) {
+                if (blackTurn) {
                 rand = random.nextInt(5);
                 if (rand == 0) {
                     dice.setBackgroundResource(R.mipmap.dice_1);
@@ -162,29 +162,8 @@ public class GameActivity extends AppCompatActivity {
                     dice.setBackgroundResource(R.mipmap.dice_6);
                 }
 
-                    MoveB(Pblack, rand, Black);
-                }
-                else {
-                    rand = random.nextInt(5);
-                    if (rand == 0) {
-                        dice.setBackgroundResource(R.mipmap.dice_1);
-                    }
-                    if (rand == 1) {
-                        dice.setBackgroundResource(R.mipmap.dice_2);
-                    }
-                    if (rand == 2) {
-                        dice.setBackgroundResource(R.mipmap.dice_3);
-                    }
-                    if (rand == 3) {
-                        dice.setBackgroundResource(R.mipmap.dice_4);
-                    }
-                    if (rand == 4) {
-                        dice.setBackgroundResource(R.mipmap.dice_5);
-                    }
-                    if (rand == 5) {
-                        dice.setBackgroundResource(R.mipmap.dice_6);
-                    }
-                    MoveR(Pred, rand, Red);
+                    Move(Pblack, rand, Black);
+                    blackTurn = false;
                 }
 
             }
@@ -193,9 +172,11 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
+        if(Pblack.getLocation() == 4)
+            SnakeOrLaddar(Pblack, Black, 14);
     }
 
-    public void MoveB(Player player, int move, ImageView[] view) {
+    public void Move(Player player, int move, ImageView[] view) {
         if ((player.getLocation() + move) >= 50) {
             while (player.getLocation() != 50) {
                 view[player.getLocation()].setBackgroundResource(0);
@@ -219,28 +200,16 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void MoveR(Player player, int move, ImageView[] view) {
-        if ((player.getLocation() + move) >= 50) {
-            while (player.getLocation() != 50) {
-                view[player.getLocation()].setBackgroundResource(0);
-                view[player.getLocation() + 1].setBackgroundResource(R.mipmap.red_dot);
-                player.setLocation(player.getLocation() + 1);
-                SystemClock.sleep(1000);
 
-            }
-            //victory massage red
-        } else {
-            for (int i = 0; i < move; i++) {
-
-                view[player.getLocation() + i].setBackgroundResource(0);
-                view[player.getLocation() + i + 1].setBackgroundResource(R.mipmap.red_dot);
-                SystemClock.sleep(1000);
-            }
-
-            player.setLocation(player.getLocation() + move);
+    public void SnakeOrLaddar(Player player, ImageView[] view, int location)
+    {
+        view[player.getLocation()].setBackgroundResource(0);
+        if(blackTurn) {
+            view[location].setBackgroundResource(R.mipmap.black_dot);
         }
-
-
+        else
+            view[location].setBackgroundResource(R.mipmap.red_dot);
+        player.setLocation(location);
     }
 }
 
