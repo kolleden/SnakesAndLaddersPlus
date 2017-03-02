@@ -5,10 +5,14 @@ package com.example.user1.snakesandladdersplus;
  */
 public class Player {
     private int location;
+    private boolean player;
 
-    public Player() {
-        this.location = 1;
+    public Player(boolean player) {
+        this.player = player;
+    }
 
+    public boolean isPlayer() {
+        return player;
     }
 
     public int getLocation() {
@@ -19,5 +23,3 @@ public class Player {
         this.location = location;
     }
 }
-
-

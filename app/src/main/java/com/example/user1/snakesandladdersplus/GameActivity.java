@@ -1,15 +1,14 @@
 package com.example.user1.snakesandladdersplus;
 
+import android.content.Loader;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.view.Window;
-import android.view.WindowManager;
-import android.content.pm.ActivityInfo;
+
 
 import java.util.Random;
 
@@ -17,191 +16,176 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
     Random random;
     Button dice;
-    int rand;
-    boolean blackTurn;
-    Player Pred;
-    Player Pblack;
-    ImageView[] Black;
-    ImageView[] Red;
+    boolean blackTurn = true;
+    Player pRed = new Player(true);
+    Player pBlack = new Player(false);
+    ImageView[] blackArr;
+    ImageView[] redArr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-
         dice = (Button) findViewById(R.id.dice);
 
-       Black[0] = (ImageView) findViewById(R.id.b1);
-        Black[1] = (ImageView) findViewById(R.id.b2);
-        Black[2] = (ImageView) findViewById(R.id.b3);
-        Black[3] = (ImageView) findViewById(R.id.b4);
-        Black[4] = (ImageView) findViewById(R.id.b5);
-        Black[5] = (ImageView) findViewById(R.id.b6);
-        Black[6] = (ImageView) findViewById(R.id.b7);
-        Black[7] = (ImageView) findViewById(R.id.b8);
-        Black[8] = (ImageView) findViewById(R.id.b9);
-        Black[9] = (ImageView) findViewById(R.id.b10);
-        Black[10] = (ImageView) findViewById(R.id.b11);
-        Black[11] = (ImageView) findViewById(R.id.b12);
-        Black[12] = (ImageView) findViewById(R.id.b13);
-        Black[13] = (ImageView) findViewById(R.id.b14);
-        Black[14] = (ImageView) findViewById(R.id.b15);
-        Black[15] = (ImageView) findViewById(R.id.b16);
-        Black[16] = (ImageView) findViewById(R.id.b17);
-        Black[17] = (ImageView) findViewById(R.id.b18);
-        Black[18] = (ImageView) findViewById(R.id.b19);
-        Black[19] = (ImageView) findViewById(R.id.b20);
-        Black[20] = (ImageView) findViewById(R.id.b21);
-        Black[21] = (ImageView) findViewById(R.id.b22);
-        Black[22] = (ImageView) findViewById(R.id.b23);
-        Black[23] = (ImageView) findViewById(R.id.b24);
-        Black[024] = (ImageView) findViewById(R.id.b25);
-        Black[25] = (ImageView) findViewById(R.id.b26);
-        Black[26] = (ImageView) findViewById(R.id.b27);
-        Black[27] = (ImageView) findViewById(R.id.b28);
-        Black[28] = (ImageView) findViewById(R.id.b29);
-        Black[29] = (ImageView) findViewById(R.id.b30);
-        Black[30] = (ImageView) findViewById(R.id.b31);
-        Black[31] = (ImageView) findViewById(R.id.b32);
-        Black[32] = (ImageView) findViewById(R.id.b33);
-        Black[33] = (ImageView) findViewById(R.id.b34);
-        Black[34] = (ImageView) findViewById(R.id.b35);
-        Black[35] = (ImageView) findViewById(R.id.b36);
-        Black[36] = (ImageView) findViewById(R.id.b37);
-        Black[37] = (ImageView) findViewById(R.id.b38);
-        Black[38] = (ImageView) findViewById(R.id.b39);
-        Black[39] = (ImageView) findViewById(R.id.b40);
-        Black[40] = (ImageView) findViewById(R.id.b41);
-        Black[41] = (ImageView) findViewById(R.id.b42);
-        Black[42] = (ImageView) findViewById(R.id.b43);
-        Black[43] = (ImageView) findViewById(R.id.b44);
-        Black[44] = (ImageView) findViewById(R.id.b45);
-        Black[45] = (ImageView) findViewById(R.id.b46);
-        Black[46] = (ImageView) findViewById(R.id.b47);
-        Black[47] = (ImageView) findViewById(R.id.b48);
-        Black[48] = (ImageView) findViewById(R.id.b49);
-        Black[49] = (ImageView) findViewById(R.id.b50);
+        random = new Random();
+        blackArr = new ImageView[50];
+        redArr = new ImageView[50];
 
-        Red[0] = (ImageView) findViewById(R.id.r1);
-        Red[1] = (ImageView) findViewById(R.id.r2);
-        Red[2] = (ImageView) findViewById(R.id.r3);
-        Red[3] = (ImageView) findViewById(R.id.r4);
-        Red[4] = (ImageView) findViewById(R.id.r5);
-        Red[5] = (ImageView) findViewById(R.id.r6);
-        Red[6] = (ImageView) findViewById(R.id.r7);
-        Red[7] = (ImageView) findViewById(R.id.r8);
-        Red[8] = (ImageView) findViewById(R.id.r9);
-        Red[9] = (ImageView) findViewById(R.id.r10);
-        Red[10] = (ImageView) findViewById(R.id.r11);
-        Red[11] = (ImageView) findViewById(R.id.r12);
-        Red[12] = (ImageView) findViewById(R.id.r13);
-        Red[13] = (ImageView) findViewById(R.id.r14);
-        Red[14] = (ImageView) findViewById(R.id.r15);
-        Red[15] = (ImageView) findViewById(R.id.r16);
-        Red[16] = (ImageView) findViewById(R.id.r17);
-        Red[17] = (ImageView) findViewById(R.id.r18);
-        Red[18] = (ImageView) findViewById(R.id.r19);
-        Red[19] = (ImageView) findViewById(R.id.r20);
-        Red[20] = (ImageView) findViewById(R.id.r21);
-        Red[21] = (ImageView) findViewById(R.id.r22);
-        Red[22] = (ImageView) findViewById(R.id.r23);
-        Red[23] = (ImageView) findViewById(R.id.r24);
-        Red[024] = (ImageView) findViewById(R.id.r25);
-        Red[25] = (ImageView) findViewById(R.id.r26);
-        Red[26] = (ImageView) findViewById(R.id.r27);
-        Red[27] = (ImageView) findViewById(R.id.r28);
-        Red[28] = (ImageView) findViewById(R.id.r29);
-        Red[29] = (ImageView) findViewById(R.id.r30);
-        Red[30] = (ImageView) findViewById(R.id.r31);
-        Red[31] = (ImageView) findViewById(R.id.r32);
-        Red[32] = (ImageView) findViewById(R.id.r33);
-        Red[33] = (ImageView) findViewById(R.id.r34);
-        Red[34] = (ImageView) findViewById(R.id.r35);
-        Red[35] = (ImageView) findViewById(R.id.r36);
-        Red[36] = (ImageView) findViewById(R.id.r37);
-        Red[37] = (ImageView) findViewById(R.id.r38);
-        Red[38] = (ImageView) findViewById(R.id.r39);
-        Red[39] = (ImageView) findViewById(R.id.r40);
-        Red[40] = (ImageView) findViewById(R.id.r41);
-        Red[41] = (ImageView) findViewById(R.id.r42);
-        Red[42] = (ImageView) findViewById(R.id.r43);
-        Red[43] = (ImageView) findViewById(R.id.r44);
-        Red[44] = (ImageView) findViewById(R.id.r45);
-        Red[45] = (ImageView) findViewById(R.id.r46);
-        Red[46] = (ImageView) findViewById(R.id.r47);
-        Red[47] = (ImageView) findViewById(R.id.r48);
-        Red[48] = (ImageView) findViewById(R.id.r49);
-        Red[49] = (ImageView) findViewById(R.id.r50);
+        blackArr[0] = (ImageView) findViewById(R.id.b1);
+        blackArr[1] = (ImageView) findViewById(R.id.b2);
+        blackArr[2] = (ImageView) findViewById(R.id.b3);
+        blackArr[3] = (ImageView) findViewById(R.id.b4);
+        blackArr[4] = (ImageView) findViewById(R.id.b5);
+        blackArr[5] = (ImageView) findViewById(R.id.b6);
+        blackArr[6] = (ImageView) findViewById(R.id.b7);
+        blackArr[7] = (ImageView) findViewById(R.id.b8);
+        blackArr[8] = (ImageView) findViewById(R.id.b9);
+        blackArr[9] = (ImageView) findViewById(R.id.b10);
+        blackArr[10] = (ImageView) findViewById(R.id.b11);
+        blackArr[11] = (ImageView) findViewById(R.id.b12);
+        blackArr[12] = (ImageView) findViewById(R.id.b13);
+        blackArr[13] = (ImageView) findViewById(R.id.b14);
+        blackArr[14] = (ImageView) findViewById(R.id.b15);
+        blackArr[15] = (ImageView) findViewById(R.id.b16);
+        blackArr[16] = (ImageView) findViewById(R.id.b17);
+        blackArr[17] = (ImageView) findViewById(R.id.b18);
+        blackArr[18] = (ImageView) findViewById(R.id.b19);
+        blackArr[19] = (ImageView) findViewById(R.id.b20);
+        blackArr[20] = (ImageView) findViewById(R.id.b21);
+        blackArr[21] = (ImageView) findViewById(R.id.b22);
+        blackArr[22] = (ImageView) findViewById(R.id.b23);
+        blackArr[23] = (ImageView) findViewById(R.id.b24);
+        blackArr[24] = (ImageView) findViewById(R.id.b25);
+        blackArr[25] = (ImageView) findViewById(R.id.b26);
+        blackArr[26] = (ImageView) findViewById(R.id.b27);
+        blackArr[27] = (ImageView) findViewById(R.id.b28);
+        blackArr[28] = (ImageView) findViewById(R.id.b29);
+        blackArr[29] = (ImageView) findViewById(R.id.b30);
+        blackArr[30] = (ImageView) findViewById(R.id.b31);
+        blackArr[31] = (ImageView) findViewById(R.id.b32);
+        blackArr[32] = (ImageView) findViewById(R.id.b33);
+        blackArr[33] = (ImageView) findViewById(R.id.b34);
+        blackArr[34] = (ImageView) findViewById(R.id.b35);
+        blackArr[35] = (ImageView) findViewById(R.id.b36);
+        blackArr[36] = (ImageView) findViewById(R.id.b37);
+        blackArr[37] = (ImageView) findViewById(R.id.b38);
+        blackArr[38] = (ImageView) findViewById(R.id.b39);
+        blackArr[39] = (ImageView) findViewById(R.id.b40);
+        blackArr[40] = (ImageView) findViewById(R.id.b41);
+        blackArr[41] = (ImageView) findViewById(R.id.b42);
+        blackArr[42] = (ImageView) findViewById(R.id.b43);
+        blackArr[43] = (ImageView) findViewById(R.id.b44);
+        blackArr[44] = (ImageView) findViewById(R.id.b45);
+        blackArr[45] = (ImageView) findViewById(R.id.b46);
+        blackArr[46] = (ImageView) findViewById(R.id.b47);
+        blackArr[47] = (ImageView) findViewById(R.id.b48);
+        blackArr[48] = (ImageView) findViewById(R.id.b49);
+        blackArr[49] = (ImageView) findViewById(R.id.b50);
 
-
-
+        redArr[0] = (ImageView) findViewById(R.id.r1);
+        redArr[1] = (ImageView) findViewById(R.id.r2);
+        redArr[2] = (ImageView) findViewById(R.id.r3);
+        redArr[3] = (ImageView) findViewById(R.id.r4);
+        redArr[4] = (ImageView) findViewById(R.id.r5);
+        redArr[5] = (ImageView) findViewById(R.id.r6);
+        redArr[6] = (ImageView) findViewById(R.id.r7);
+        redArr[7] = (ImageView) findViewById(R.id.r8);
+        redArr[8] = (ImageView) findViewById(R.id.r9);
+        redArr[9] = (ImageView) findViewById(R.id.r10);
+        redArr[10] = (ImageView) findViewById(R.id.r11);
+        redArr[11] = (ImageView) findViewById(R.id.r12);
+        redArr[12] = (ImageView) findViewById(R.id.r13);
+        redArr[13] = (ImageView) findViewById(R.id.r14);
+        redArr[14] = (ImageView) findViewById(R.id.r15);
+        redArr[15] = (ImageView) findViewById(R.id.r16);
+        redArr[16] = (ImageView) findViewById(R.id.r17);
+        redArr[17] = (ImageView) findViewById(R.id.r18);
+        redArr[18] = (ImageView) findViewById(R.id.r19);
+        redArr[19] = (ImageView) findViewById(R.id.r20);
+        redArr[20] = (ImageView) findViewById(R.id.r21);
+        redArr[21] = (ImageView) findViewById(R.id.r22);
+        redArr[22] = (ImageView) findViewById(R.id.r23);
+        redArr[23] = (ImageView) findViewById(R.id.r24);
+        redArr[24] = (ImageView) findViewById(R.id.r25);
+        redArr[25] = (ImageView) findViewById(R.id.r26);
+        redArr[26] = (ImageView) findViewById(R.id.r27);
+        redArr[27] = (ImageView) findViewById(R.id.r28);
+        redArr[28] = (ImageView) findViewById(R.id.r29);
+        redArr[29] = (ImageView) findViewById(R.id.r30);
+        redArr[30] = (ImageView) findViewById(R.id.r31);
+        redArr[31] = (ImageView) findViewById(R.id.r32);
+        redArr[32] = (ImageView) findViewById(R.id.r33);
+        redArr[33] = (ImageView) findViewById(R.id.r34);
+        redArr[34] = (ImageView) findViewById(R.id.r35);
+        redArr[35] = (ImageView) findViewById(R.id.r36);
+        redArr[36] = (ImageView) findViewById(R.id.r37);
+        redArr[37] = (ImageView) findViewById(R.id.r38);
+        redArr[38] = (ImageView) findViewById(R.id.r39);
+        redArr[39] = (ImageView) findViewById(R.id.r40);
+        redArr[40] = (ImageView) findViewById(R.id.r41);
+        redArr[41] = (ImageView) findViewById(R.id.r42);
+        redArr[42] = (ImageView) findViewById(R.id.r43);
+        redArr[43] = (ImageView) findViewById(R.id.r44);
+        redArr[44] = (ImageView) findViewById(R.id.r45);
+        redArr[45] = (ImageView) findViewById(R.id.r46);
+        redArr[46] = (ImageView) findViewById(R.id.r47);
+        redArr[47] = (ImageView) findViewById(R.id.r48);
+        redArr[48] = (ImageView) findViewById(R.id.r49);
+        redArr[49] = (ImageView) findViewById(R.id.r50);
 
         dice.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
-                if (blackTurn) {
-                rand = random.nextInt(5);
-                if (rand == 0) {
-                    dice.setBackgroundResource(R.mipmap.dice_1);
-                }
-                if (rand == 1) {
-                    dice.setBackgroundResource(R.mipmap.dice_2);
-                }
-                if (rand == 2) {
-                    dice.setBackgroundResource(R.mipmap.dice_3);
-                }
-                if (rand == 3) {
-                    dice.setBackgroundResource(R.mipmap.dice_4);
-                }
-                if (rand == 4) {
-                    dice.setBackgroundResource(R.mipmap.dice_5);
-                }
-                if (rand == 5) {
-                    dice.setBackgroundResource(R.mipmap.dice_6);
+                int rand = random.nextInt(5);
+
+                switch (rand){
+                    case 0:
+                        dice.setBackgroundResource(R.mipmap.dice_1);
+                        break;
+                    case 1:
+                        dice.setBackgroundResource(R.mipmap.dice_2);
+                        break;
+                    case 2:
+                        dice.setBackgroundResource(R.mipmap.dice_3);
+                        break;
+                    case 3:
+                        dice.setBackgroundResource(R.mipmap.dice_4);
+                        break;
+                    case 4:
+                        dice.setBackgroundResource(R.mipmap.dice_5);
+                        break;
+                    case 5:
+                        dice.setBackgroundResource(R.mipmap.dice_6);
+                        break;
                 }
 
-                    Move(Pblack, rand, Black);
-                    blackTurn = false;
-                }
+                if (blackTurn)
+                    move(pBlack, rand + 1, blackArr);
+                else
+                    move(pRed, rand + 1, redArr);
 
+                blackTurn = !blackTurn;
             }
-
-
         });
-
-
-        if(Pblack.getLocation() == 4)
-            SnakeOrLaddar(Pblack, Black, 14);
     }
 
-    public void Move(Player player, int move, ImageView[] view) {
-        if ((player.getLocation() + move) >= 50) {
-            while (player.getLocation() != 50) {
-                view[player.getLocation()].setBackgroundResource(0);
-                view[player.getLocation() + 1].setBackgroundResource(R.mipmap.black_dot);
-                player.setLocation(player.getLocation() + 1);
-                SystemClock.sleep(1000);
+    public void move(Player player, int move, ImageView[] view) {
+        int add = player.getLocation() + move;
+        view[player.getLocation()].setBackgroundResource(0);
 
-            }
-            //victory massage black
-        } else {
-            for (int i = 0; i < move; i++) {
+        if (player.getLocation() + move >= 50)
+            add = 49;
+        else
+            ;//game ends
 
-                view[player.getLocation() + i].setBackgroundResource(0);
-                view[player.getLocation() + i + 1].setBackgroundResource(R.mipmap.black_dot);
-                SystemClock.sleep(1000);
-            }
-
-            player.setLocation(player.getLocation() + move);
-        }
-
-
+        view[add].setBackgroundResource(player.isPlayer() ? R.mipmap.red_dot : R.mipmap.black_dot);
+        player.setLocation(add);
     }
 
 
-    public void SnakeOrLaddar(Player player, ImageView[] view, int location)
+    public void snakeOrLaddar(Player player, ImageView[] view, int location)
     {
         view[player.getLocation()].setBackgroundResource(0);
         if(blackTurn) {
@@ -212,4 +196,3 @@ public class GameActivity extends AppCompatActivity {
         player.setLocation(location);
     }
 }
-

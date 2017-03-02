@@ -9,55 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends AppCompatActivity {
-    Button rules;
-    Button scoreboard;
-    Button login;
-    Button play;
+    Button rules, scoreboard, login, play;
     Boolean LoggedOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         rules = (Button) findViewById(R.id.rules);
         scoreboard = (Button) findViewById(R.id.scoreboard);
         login = (Button) findViewById(R.id.login);
         play = (Button) findViewById(R.id.play);
 
 
-
-
-
-
-        rules.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
-            }
-
-
-        });
-
-        scoreboard.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(LoggedOn) {
-                    Intent intentScoreboard = new Intent(MainActivity.this, ScoreboardScreen.class);
-                    startActivity(intentScoreboard);
-                }
-                else {
-                    //"Your Not Logged On" massage
-                }
-            }
-
-
-        });
 
         login.setOnClickListener(new View.OnClickListener()
         {
@@ -70,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-
-
         });
 
         play.setOnClickListener(new View.OnClickListener()
@@ -83,17 +48,14 @@ public class MainActivity extends AppCompatActivity {
                {
                    Intent intentPlay = new Intent(MainActivity.this, GameActivity.class);
                    startActivity(intentPlay);
+                   Log.d("playClick","im here");
                }
                 else
                {
                    //"Your Not Logged On" massage
                }
             }
-
-
         });
-
-
     }
 
     @Override
