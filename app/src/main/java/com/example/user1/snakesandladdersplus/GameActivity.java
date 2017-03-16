@@ -1,10 +1,7 @@
 package com.example.user1.snakesandladdersplus;
 
-import android.content.Loader;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +13,12 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
     Random random;
     Button dice;
-    boolean blackTurn = true;
+    boolean redTurn = true;
     Player pRed = new Player(true);
     Player pBlack = new Player(false);
     ImageView[] blackArr;
     ImageView[] redArr;
+    SnakesAndLadders[] snakesAndLaddersArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +30,18 @@ public class GameActivity extends AppCompatActivity {
         random = new Random();
         blackArr = new ImageView[50];
         redArr = new ImageView[50];
+
+        snakesAndLaddersArr = new SnakesAndLadders[9];
+        snakesAndLaddersArr[0] = new SnakesAndLadders(7, 14);
+        snakesAndLaddersArr[1] = new SnakesAndLadders(23, 5);
+        snakesAndLaddersArr[2] = new SnakesAndLadders(11, 30);
+        snakesAndLaddersArr[3] = new SnakesAndLadders(19, 35);
+        snakesAndLaddersArr[4] = new SnakesAndLadders(40, 18);
+        snakesAndLaddersArr[5] = new SnakesAndLadders(49, 25);
+        snakesAndLaddersArr[6] = new SnakesAndLadders(34, 42);
+        snakesAndLaddersArr[7] = new SnakesAndLadders(12, 9);
+        snakesAndLaddersArr[8] = new SnakesAndLadders(22, 37);
+        snakesAndLaddersArr[9] = new SnakesAndLadders(22, 3);
 
         blackArr[0] = (ImageView) findViewById(R.id.b1);
         blackArr[1] = (ImageView) findViewById(R.id.b2);
@@ -161,12 +171,12 @@ public class GameActivity extends AppCompatActivity {
                         break;
                 }
 
-                if (blackTurn)
+                if (redTurn)
                     move(pBlack, rand + 1, blackArr);
                 else
                     move(pRed, rand + 1, redArr);
 
-                blackTurn = !blackTurn;
+                redTurn = !redTurn;
             }
         });
     }
@@ -182,17 +192,26 @@ public class GameActivity extends AppCompatActivity {
 
         view[add].setBackgroundResource(player.isPlayer() ? R.mipmap.red_dot : R.mipmap.black_dot);
         player.setLocation(add);
+        checkSnakes(player.isPlayer() ? pRed : pBlack, snakesAndLaddersArr);
     }
 
+
+    public void checkSnakes(Player player, SnakesAndLadders[] snakeLocations)
+    {
+        for (int i = 0; i < snakeLocations.length; i++) {
+            if(player.getLocation() == snakeLocations[i].getStartLocation())
+                snakeOrLaddar(player, redArr, snakeLocations[i].getStartLocation());
+        }
+    }
 
     public void snakeOrLaddar(Player player, ImageView[] view, int location)
     {
         view[player.getLocation()].setBackgroundResource(0);
-        if(blackTurn) {
-            view[location].setBackgroundResource(R.mipmap.black_dot);
+        if(redTurn) {
+            view[location].setBackgroundResource(R.mipmap.red_dot);
         }
         else
-            view[location].setBackgroundResource(R.mipmap.red_dot);
+            view[location].setBackgroundResource(R.mipmap.black_dot);
         player.setLocation(location);
     }
 }

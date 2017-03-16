@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intentLogin = new Intent(MainActivity.this, LoginScreen.class);
                     startActivity(intentLogin);
                 }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Your Already Logged On!", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -48,11 +54,10 @@ public class MainActivity extends AppCompatActivity {
                {
                    Intent intentPlay = new Intent(MainActivity.this, GameActivity.class);
                    startActivity(intentPlay);
-                   Log.d("playClick","im here");
                }
                 else
                {
-                   //"Your Not Logged On" massage
+                   Toast.makeText(MainActivity.this, "Your Not Logged On!", Toast.LENGTH_SHORT).show();
                }
             }
         });
