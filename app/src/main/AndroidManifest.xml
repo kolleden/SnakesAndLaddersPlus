@@ -21,6 +21,9 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden">
         </activity>
+        <activity
+            android:name=".LoginScreen">
+        </activity>
     </application>
 
 </manifest>

@@ -26,12 +26,11 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.game_activity);
 
         dice = (Button) findViewById(R.id.dice);
-
         random = new Random();
         blackArr = new ImageView[50];
         redArr = new ImageView[50];
 
-        snakesAndLaddersArr = new SnakesAndLadders[9];
+        snakesAndLaddersArr = new SnakesAndLadders[10];
         snakesAndLaddersArr[0] = new SnakesAndLadders(7, 14);
         snakesAndLaddersArr[1] = new SnakesAndLadders(23, 5);
         snakesAndLaddersArr[2] = new SnakesAndLadders(11, 30);
@@ -185,10 +184,10 @@ public class GameActivity extends AppCompatActivity {
         int add = player.getLocation() + move;
         view[player.getLocation()].setBackgroundResource(0);
 
-        if (player.getLocation() + move >= 50)
+        if (player.getLocation() + move >= 50) {
             add = 49;
-        else
-            ;//game ends
+            //game ends
+        }
 
         view[add].setBackgroundResource(player.isPlayer() ? R.mipmap.red_dot : R.mipmap.black_dot);
         player.setLocation(add);
