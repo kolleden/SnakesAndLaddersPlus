@@ -40,7 +40,7 @@ public class GameActivity extends AppCompatActivity {
         snakesAndLaddersArr[6] = new SnakesAndLadders(34, 42);
         snakesAndLaddersArr[7] = new SnakesAndLadders(12, 9);
         snakesAndLaddersArr[8] = new SnakesAndLadders(22, 37);
-        snakesAndLaddersArr[9] = new SnakesAndLadders(22, 3);
+        snakesAndLaddersArr[9] = new SnakesAndLadders(11, 3);
 
         blackArr[0] = (ImageView) findViewById(R.id.b1);
         blackArr[1] = (ImageView) findViewById(R.id.b2);
