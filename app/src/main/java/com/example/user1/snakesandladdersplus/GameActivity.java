@@ -1,11 +1,11 @@
 package com.example.user1.snakesandladdersplus;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -19,6 +19,7 @@ public class GameActivity extends AppCompatActivity {
     ImageView[] blackArr;
     ImageView[] redArr;
     SnakesAndLadders[] snakesAndLaddersArr;
+    Button Reset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class GameActivity extends AppCompatActivity {
         random = new Random();
         blackArr = new ImageView[50];
         redArr = new ImageView[50];
+        Reset = (Button) findViewById(R.id.Replay);
+        Reset.setClickable(false);
+        Reset.setVisibility(View.INVISIBLE);
 
         snakesAndLaddersArr = new SnakesAndLadders[10];
         snakesAndLaddersArr[0] = new SnakesAndLadders(7, 14);
@@ -178,6 +182,19 @@ public class GameActivity extends AppCompatActivity {
                 redTurn = !redTurn;
             }
         });
+
+        Reset.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+               pRed.setLocation(0);
+                pBlack.setLocation(0);
+                Reset.setClickable(false);
+                Reset.setVisibility(View.INVISIBLE);
+                dice.setClickable(true);
+            }
+        });
     }
 
     public void move(Player player, int move, ImageView[] view) {
@@ -186,12 +203,17 @@ public class GameActivity extends AppCompatActivity {
 
         if (player.getLocation() + move >= 50) {
             add = 49;
-            //game ends
+            Toast toast = Toast.makeText(GameActivity.this, player.isPlayer() ? "Red Player Won!" : "Black Player Won!", Toast.LENGTH_LONG);
+            toast.show();
+            dice.setClickable(false);
+            Reset.setClickable(true);
+            Reset.setVisibility(View.VISIBLE);
+
         }
 
         view[add].setBackgroundResource(player.isPlayer() ? R.mipmap.red_dot : R.mipmap.black_dot);
         player.setLocation(add);
-        checkSnakes(player.isPlayer() ? pRed : pBlack, snakesAndLaddersArr);
+        //checkSnakes(player.isPlayer() ? pRed : pBlack, snakesAndLaddersArr);
     }
 
 
@@ -213,4 +235,6 @@ public class GameActivity extends AppCompatActivity {
             view[location].setBackgroundResource(R.mipmap.black_dot);
         player.setLocation(location);
     }
+
+
 }

@@ -1,18 +1,17 @@
 package com.example.user1.snakesandladdersplus;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+
 
 
 public class MainActivity extends AppCompatActivity {
-    Button rules, scoreboard, login, play;
+    Button scoreboard, play;
     Boolean LoggedOn = true;
 
     @Override
@@ -20,47 +19,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rules = (Button) findViewById(R.id.rules);
         scoreboard = (Button) findViewById(R.id.scoreboard);
-        login = (Button) findViewById(R.id.login);
         play = (Button) findViewById(R.id.play);
 
 
-
-        login.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(!LoggedOn) {
-                    Intent intentLogin = new Intent(MainActivity.this, LoginScreen.class);
-                    startActivity(intentLogin);
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Your Already Logged On!", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-        });
 
         play.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-               if(LoggedOn)
-               {
-                   Intent intentPlay = new Intent(MainActivity.this, GameActivity.class);
-                   startActivity(intentPlay);
-               }
-                else
-               {
-                   Toast.makeText(MainActivity.this, "Your Not Logged On!", Toast.LENGTH_SHORT).show();
-               }
-            }
+                    Intent intentLogin = new Intent(MainActivity.this, GameActivity.class);
+                    startActivity(intentLogin);
+                }
         });
+
     }
 
     @Override
