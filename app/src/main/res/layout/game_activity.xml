@@ -776,7 +776,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/r43"
+            android:id="@+id/r44"
             android:layout_above="@+id/b37"
             android:layout_toLeftOf="@+id/r36"
             android:layout_toStartOf="@+id/r36" />
@@ -784,7 +784,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/r44"
+            android:id="@+id/r43"
             android:layout_above="@+id/b37"
             android:layout_toLeftOf="@+id/b37"
             android:layout_toStartOf="@+id/b37" />
@@ -852,10 +852,20 @@
         android:id="@+id/Replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dice"
+        android:layout_marginTop="17dp"
+        android:text="Reset?"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/dice"
-        android:layout_marginTop="78dp" />
+        android:layout_alignLeft="@+id/dice"
+        android:layout_alignStart="@+id/dice" />
+
+    <ImageView
+        android:id="@+id/Player"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignEnd="@+id/Replay"
+        android:layout_alignRight="@+id/Replay"
+        android:layout_below="@+id/Replay"
+        android:layout_marginTop="22dp" />
 
 </RelativeLayout>
 

@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:text="Score"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editScore"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editScore"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_Id"
+        android:layout_below="@+id/editScore"
+        android:layout_toRightOf="@+id/textView_id"
+        android:layout_toEndOf="@+id/textView_id"
+        android:layout_marginTop="19dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Data"
+        android:id="@+id/button_add"
+        android:layout_below="@+id/editText_Id"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="76dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All"
+        android:id="@+id/button_viewAll"
+        android:layout_alignBaseline="@+id/button_add"
+        android:layout_alignBottom="@+id/button_add"
+        android:layout_toRightOf="@+id/button_add"
+        android:layout_toEndOf="@+id/button_add"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button_delete"
+        android:layout_below="@+id/button_add"
+        android:layout_alignRight="@+id/button_add"
+        android:layout_alignEnd="@+id/button_add"
+        android:layout_marginTop="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="id"
+        android:id="@+id/textView_id"
+        android:layout_alignBaseline="@+id/editText_Id"
+        android:layout_alignBottom="@+id/editText_Id"
+        android:layout_alignLeft="@+id/button_delete"
+        android:layout_alignStart="@+id/button_delete" />
+
+</RelativeLayout>

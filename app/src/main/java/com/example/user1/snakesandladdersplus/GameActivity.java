@@ -1,10 +1,13 @@
 package com.example.user1.snakesandladdersplus;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -20,12 +23,14 @@ public class GameActivity extends AppCompatActivity {
     ImageView[] redArr;
     SnakesAndLadders[] snakesAndLaddersArr;
     Button Reset;
+    SqliteDatabase db;
+    ImageView Player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
-
+        db = new SqliteDatabase(this);
         dice = (Button) findViewById(R.id.dice);
         random = new Random();
         blackArr = new ImageView[50];
@@ -33,18 +38,19 @@ public class GameActivity extends AppCompatActivity {
         Reset = (Button) findViewById(R.id.Replay);
         Reset.setClickable(false);
         Reset.setVisibility(View.INVISIBLE);
+        Player = (ImageView) findViewById(R.id.Player);
+        Player.setBackgroundResource(R.mipmap.black_player);
 
-        snakesAndLaddersArr = new SnakesAndLadders[10];
-        snakesAndLaddersArr[0] = new SnakesAndLadders(7, 14);
-        snakesAndLaddersArr[1] = new SnakesAndLadders(23, 5);
-        snakesAndLaddersArr[2] = new SnakesAndLadders(11, 30);
-        snakesAndLaddersArr[3] = new SnakesAndLadders(19, 35);
-        snakesAndLaddersArr[4] = new SnakesAndLadders(40, 18);
-        snakesAndLaddersArr[5] = new SnakesAndLadders(49, 25);
-        snakesAndLaddersArr[6] = new SnakesAndLadders(34, 42);
-        snakesAndLaddersArr[7] = new SnakesAndLadders(12, 9);
-        snakesAndLaddersArr[8] = new SnakesAndLadders(22, 37);
-        snakesAndLaddersArr[9] = new SnakesAndLadders(11, 3);
+        snakesAndLaddersArr = new SnakesAndLadders[9];
+        snakesAndLaddersArr[0] = new SnakesAndLadders(6, 13);
+        snakesAndLaddersArr[1] = new SnakesAndLadders(22, 4);
+        snakesAndLaddersArr[2] = new SnakesAndLadders(9, 29);
+        snakesAndLaddersArr[3] = new SnakesAndLadders(18, 34);
+        snakesAndLaddersArr[4] = new SnakesAndLadders(39, 21);
+        snakesAndLaddersArr[5] = new SnakesAndLadders(48, 24);
+        snakesAndLaddersArr[6] = new SnakesAndLadders(33, 41);
+        snakesAndLaddersArr[7] = new SnakesAndLadders(11, 8);
+        snakesAndLaddersArr[8] = new SnakesAndLadders(21, 36);
 
         blackArr[0] = (ImageView) findViewById(R.id.b1);
         blackArr[1] = (ImageView) findViewById(R.id.b2);
@@ -174,10 +180,14 @@ public class GameActivity extends AppCompatActivity {
                         break;
                 }
 
-                if (redTurn)
+                if (redTurn) {
                     move(pBlack, rand + 1, blackArr);
-                else
+                    Player.setBackgroundResource(R.mipmap.red_player);
+                }
+                else {
                     move(pRed, rand + 1, redArr);
+                    Player.setBackgroundResource(R.mipmap.black_player);
+                }
 
                 redTurn = !redTurn;
             }
@@ -188,14 +198,25 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-               pRed.setLocation(0);
+                blackArr[pBlack.getLocation()].setBackgroundResource(0);
+                redArr[pRed.getLocation()].setBackgroundResource(0);
+                pRed.setLocation(0);
                 pBlack.setLocation(0);
+                blackArr[pBlack.getLocation()].setBackgroundResource(R.mipmap.black_dot);
+                redArr[pRed.getLocation()].setBackgroundResource(R.mipmap.red_dot);
                 Reset.setClickable(false);
                 Reset.setVisibility(View.INVISIBLE);
                 dice.setClickable(true);
+                Snackbar snackbar = Snackbar
+                        .make(v, "The Game Has Been Reset!", Snackbar.LENGTH_SHORT);
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.GREEN);
+                snackbar.show();
             }
         });
     }
+
 
     public void move(Player player, int move, ImageView[] view) {
         int add = player.getLocation() + move;
@@ -213,7 +234,10 @@ public class GameActivity extends AppCompatActivity {
 
         view[add].setBackgroundResource(player.isPlayer() ? R.mipmap.red_dot : R.mipmap.black_dot);
         player.setLocation(add);
-        //checkSnakes(player.isPlayer() ? pRed : pBlack, snakesAndLaddersArr);
+        if(redTurn)
+        checkSnakes(pRed, snakesAndLaddersArr);
+          else
+           checkSnakes(pBlack, snakesAndLaddersArr);
     }
 
 
@@ -221,7 +245,12 @@ public class GameActivity extends AppCompatActivity {
     {
         for (int i = 0; i < snakeLocations.length; i++) {
             if(player.getLocation() == snakeLocations[i].getStartLocation())
-                snakeOrLaddar(player, redArr, snakeLocations[i].getStartLocation());
+                if(redTurn) {
+                    snakeOrLaddar(player, redArr, snakeLocations[i].getEndLocation());
+                }
+                else
+                    snakeOrLaddar(player, blackArr, snakeLocations[i].getEndLocation());
+
         }
     }
 
@@ -232,7 +261,9 @@ public class GameActivity extends AppCompatActivity {
             view[location].setBackgroundResource(R.mipmap.red_dot);
         }
         else
+            {
             view[location].setBackgroundResource(R.mipmap.black_dot);
+        }
         player.setLocation(location);
     }
 
